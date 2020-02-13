@@ -14,3 +14,14 @@ func Page(Limit, Page int64) (limit, offset int64) {
 	}
 	return limit, offset
 }
+
+// Sort 排序
+// 默认 created_at desc
+func Sort(Sort string) (sort string) {
+	if Sort != "" {
+		sort = Sort
+	} else {
+		sort = "created_at desc"
+	}
+	return sort
+}
