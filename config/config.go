@@ -1,5 +1,8 @@
 package config
 
+import (
+	"github.com/micro/go-micro/v2/config"
+)
 // Permission 权限
 type Permission struct {
 	Service     string `json:"service"`
