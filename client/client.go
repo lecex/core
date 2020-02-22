@@ -3,9 +3,9 @@ package client
 import (
 	"context"
 
+	cli "github.com/micro/go-micro/client/grpc"
 	"github.com/micro/go-micro/v2/client"
 	"github.com/micro/go-micro/v2/config/cmd"
-	cli "github.com/micro/go-micro/client/grpc"
 )
 
 func init() {
