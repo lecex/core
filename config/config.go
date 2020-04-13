@@ -9,7 +9,7 @@ import (
 type Config struct {
 	Service     string
 	Version     string
-	UserService string
+	Servicers   map[string]string
 	Permissions []*PB.Permission
 }
 
