@@ -9,14 +9,14 @@ import (
 type Config struct {
 	Name        string
 	Version     string
-	Servicer    map[string]string
+	Service     map[string]string
 	Permissions []*PB.Permission
 }
 
 // Middleware 用户中间件初始化
 func (srv *Config) Middleware() *m.Handler {
 	return &m.Handler{
-		UserService: srv.Servicer["User"],
+		UserService: srv.Service["User"],
 		Permissions: srv.Permissions,
 	}
 }
