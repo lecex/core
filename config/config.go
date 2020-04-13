@@ -7,9 +7,9 @@ import (
 
 // Config 配置
 type Config struct {
-	Service     string
+	Name        string
 	Version     string
-	Servicers   map[string]string
+	Servicer    map[string]string
 	Permissions []*PB.Permission
 }
 
