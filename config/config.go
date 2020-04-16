@@ -16,7 +16,7 @@ type Config struct {
 // Middleware 用户中间件初始化
 func (srv *Config) Middleware() *m.Handler {
 	return &m.Handler{
-		UserService: srv.Service["User"],
+		UserService: srv.Service["user"],
 		Permissions: srv.Permissions,
 	}
 }
