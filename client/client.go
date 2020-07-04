@@ -5,7 +5,6 @@ import (
 
 	"github.com/micro/go-micro/v2/client"
 	"github.com/micro/go-micro/v2/config/cmd"
-	"github.com/micro/go-micro/v2/util/log"
 )
 
 func init() {
@@ -19,8 +18,6 @@ func Call(ctx context.Context, service string, endpoint string, req interface{},
 		return err
 	}
 	// Stream Close 关闭数据流
-	if defer err := client.Stream.Close(); err != nil {
-		log.Log(err)
-	}
+	defer client.Stream.Close()
 	return nil
 }
