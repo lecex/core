@@ -9,6 +9,14 @@ import (
 
 // postgresConnection 创建数据库连接
 func postgresConnection(conf *Config) (*gorm.DB, error) {
+	db, _ := gorm.Open(
+		"postgres",
+		fmt.Sprintf(
+			"host=%s port=%s user=%s sslmode=disable password=%s",
+			conf.Host, conf.Port, conf.User, conf.Password,
+		),
+	)
+	db.Exec("CREATE DATABASE " + conf.DbName + ";")
 	return gorm.Open(
 		"postgres",
 		fmt.Sprintf(
