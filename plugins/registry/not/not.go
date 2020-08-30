@@ -51,7 +51,7 @@ func (s *not) ListServices() ([]*registry.Service, error) {
 }
 
 func (s *not) Watch(opts ...registry.WatchOption) (registry.Watcher, error) {
-	return &notWatcher{sub, wo}, nil
+	return &notWatcher{}, nil
 }
 
 func (s *not) String() string {
