@@ -38,15 +38,15 @@ func (s *not) Register(service *registry.Service, opts ...registry.RegisterOptio
 	return nil
 }
 
-func (s *not) Deregister(service *registry.Service, opts ...registry.DeregisterOption) error {
+func (s *not) Deregister(service *registry.Service) error {
 	return nil
 }
 
-func (s *not) GetService(service string, opts ...registry.GetOption) ([]*registry.Service, error) {
+func (s *not) GetService(service string) ([]*registry.Service, error) {
 	return nil, nil
 }
 
-func (s *not) ListServices(opts ...registry.ListOption) ([]*registry.Service, error) {
+func (s *not) ListServices() ([]*registry.Service, error) {
 	return nil, nil
 }
 
