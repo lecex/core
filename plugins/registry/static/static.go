@@ -2,8 +2,6 @@
 package static
 
 import (
-	"fmt"
-
 	"github.com/micro/go-micro/v2/client/selector"
 	"github.com/micro/go-micro/v2/config/cmd"
 	"github.com/micro/go-micro/v2/registry"
@@ -12,10 +10,6 @@ import (
 
 func init() {
 	cmd.DefaultRegistries["static"] = NewRegistry
-}
-func main() {
-	a := NewRegistry
-	fmt.Println(a)
 }
 
 type staticRegistry struct {
