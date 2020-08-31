@@ -56,7 +56,7 @@ func (m *staticRegistry) Watch(opts ...registry.WatchOption) (registry.Watcher, 
 }
 
 func (m *staticRegistry) String() string {
-	return m.r.String()
+	return "static"
 }
 
 // NewRegistry returns a new static registry
