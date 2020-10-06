@@ -10,5 +10,4 @@ require (
 	github.com/micro/go-micro/v2 v2.3.0
 	github.com/micro/go-plugins/client/selector/static/v2 v2.3.0
 	github.com/micro/go-plugins/registry/nats/v2 v2.3.0
-	github.com/micro/mdns v0.3.0
 )

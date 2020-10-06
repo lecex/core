@@ -1,7 +1,7 @@
 package config
 
 import (
-	m "github.com/lecex/user/middleware"
+	m "github.com/lecex/core/middleware"
 	PB "github.com/lecex/user/proto/permission"
 )
 
