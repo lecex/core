@@ -56,7 +56,10 @@ func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 					// 通过 meta user_id 验证权限
 					casbinRes := &authPb.Response{}
 					err := client.Call(ctx, srv.UserService, "Casbin.Validate", &casbinPb.Request{}, casbinRes)
-					if err != nil || casbinRes.Valid == false {
+					if err != nil {
+						return errors.New("Casbin.Validate error" + err.Error())
+					}
+					if casbinRes.Valid == false {
 						return errors.New("Permission denied")
 					}
 				}
