@@ -57,7 +57,7 @@ func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 					casbinRes := &authPb.Response{}
 					err := client.Call(ctx, srv.UserService, "Casbin.Validate", &casbinPb.Request{}, casbinRes)
 					if err != nil {
-						return errors.New("Casbin.Validate error" + err.Error())
+						return err
 					}
 					if casbinRes.Valid == false {
 						return errors.New("Permission denied")
