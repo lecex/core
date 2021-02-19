@@ -3,11 +3,13 @@ package middleware
 import (
 	"context"
 	"errors"
+	"strings"
 
 	"github.com/micro/go-micro/v2/metadata"
 	"github.com/micro/go-micro/v2/server"
 
 	client "github.com/lecex/core/client"
+	"github.com/lecex/core/env"
 
 	authPb "github.com/lecex/user/proto/auth"
 	casbinPb "github.com/lecex/user/proto/casbin"
@@ -19,7 +21,6 @@ import (
 type Handler struct {
 	UserService string
 	Permissions []*PB.Permission
-	Service     string
 }
 
 // Wrapper 是一个高阶函数，入参是 ”下一步“ 函数，出参是认证函数
@@ -28,8 +29,11 @@ type Handler struct {
 // 认证通过则 fn() 继续执行，否则报错
 func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 	return func(ctx context.Context, req server.Request, resp interface{}) (err error) {
+		meta, ok := metadata.FromContext(ctx)
+		// 去掉命名空间的 service 名称
+		meta["Service"] = strings.Replace(req.Service(), env.Getenv("MICRO_API_NAMESPACE", "go.micro.api."), "", -1)
+		meta["Method"] = req.Method()
 		if srv.IsAuth(req) {
-			meta, ok := metadata.FromContext(ctx)
 			if !ok {
 				return errors.New("no auth meta-data found in request")
 			}
@@ -49,9 +53,6 @@ func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 				meta["Username"] = authRes.User.Username
 				meta["Email"] = authRes.User.Email
 				meta["Mobile"] = authRes.User.Mobile
-				meta["Service"] = srv.Service
-				meta["Method"] = req.Method()
-				ctx = metadata.NewContext(ctx, meta)
 				if srv.IsPolicy(req) {
 					// 通过 meta user_id 验证权限
 					casbinRes := &authPb.Response{}
@@ -67,6 +68,7 @@ func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 				return errors.New("Empty Authorization")
 			}
 		}
+		ctx = metadata.NewContext(ctx, meta)
 		err = fn(ctx, req, resp)
 		return err
 	}
@@ -76,7 +78,6 @@ func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 func (srv *Handler) IsAuth(req server.Request) bool {
 	for _, p := range srv.Permissions {
 		if p.Method == req.Method() && p.Auth == true {
-			srv.Service = p.Service
 			return true
 		}
 	}
