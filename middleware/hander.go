@@ -53,6 +53,7 @@ func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 				meta["Username"] = authRes.User.Username
 				meta["Email"] = authRes.User.Email
 				meta["Mobile"] = authRes.User.Mobile
+				ctx = metadata.NewContext(ctx, meta)
 				if srv.IsPolicy(req) {
 					// 通过 meta user_id 验证权限
 					casbinRes := &authPb.Response{}
