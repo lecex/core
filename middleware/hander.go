@@ -33,6 +33,18 @@ func (srv *Handler) Wrapper(fn server.HandlerFunc) server.HandlerFunc {
 		// 去掉命名空间的 service 名称
 		meta["Service"] = strings.Replace(req.Service(), env.Getenv("MICRO_API_NAMESPACE", "go.micro.api."), "", -1)
 		meta["Method"] = req.Method()
+		// 白名单黑名单拦截
+		if meta["X-Real-Ip"] != "" {
+			// 白名单 需要设置允许方法和对应白名单ip 对应方法只允许白名单ip通过
+			if find := strings.Contains(env.Getenv("IP_WHITELIST", ""), meta["Method"]); find {
+				if find := strings.Contains(env.Getenv("IP_WHITELIST", ""), meta["X-Real-Ip"]); !find {
+					return errors.New("The interface is disabled")
+				}
+			}
+			if find := strings.Contains(env.Getenv("IP_BLACKLIST", ""), meta["X-Real-Ip"]); find {
+				return errors.New("Intercept illegal access")
+			}
+		}
 		if srv.IsAuth(req) {
 			if !ok {
 				return errors.New("no auth meta-data found in request")
