@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package event;
+//  [*] 匹配所有 [,]分割多个
+message event {
+    string user_id = 1;                   // 发送用户ID
+    string device_info = 2;               // 终端编号信息
+    string group_id = 3;                  // 群ID
+    string topic = 4;                     // 订阅事件名
+    bytes data = 5;                       // 事件json数据【byte类型传输】
+}
