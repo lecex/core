@@ -8,6 +8,6 @@ require (
 	github.com/go-xorm/xorm v0.7.9
 	github.com/google/uuid v1.1.1
 	github.com/jinzhu/gorm v1.9.12
-	github.com/lecex/user v1.2.14
+	github.com/lecex/user v1.2.28
 	github.com/micro/go-micro/v2 v2.3.0
 )
