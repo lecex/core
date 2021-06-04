@@ -45,6 +45,9 @@ var podSelector = map[string]string{
 	labelTypeKey: labelTypeValue,
 }
 
+func init() {
+	cmd.DefaultRegistries["k8s"] = NewRegistry
+}
 func configure(k *kregistry, opts ...registry.Option) error {
 	for _, o := range opts {
 		o(&k.options)
