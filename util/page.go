@@ -1,4 +1,4 @@
-package uitl
+package util
 
 // Page 分页
 func Page(Limit, Page int64) (limit, offset int64) {
