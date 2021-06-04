@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/lecex/core/util/kubernetes/client"
+	"github.com/micro/go-micro/v2/config/cmd"
 	"github.com/micro/go-micro/v2/registry"
 )
 
