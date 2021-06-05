@@ -12,8 +12,8 @@ import (
 	"path"
 	"strings"
 
+	"github.com/lecex/core/util/kubernetes/api"
 	"github.com/micro/go-micro/v2/logger"
-	"github.com/micro/go-micro/v2/util/kubernetes/api"
 )
 
 var (
@@ -79,7 +79,7 @@ func (c *client) Create(r *Resource) error {
 		Resource(r.Kind).
 		Body(b).
 		Do().
-		Into(r.Value)
+		Error()
 }
 
 // Get queries API objects and stores the result in r
