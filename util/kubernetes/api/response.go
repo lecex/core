@@ -36,6 +36,7 @@ type Response struct {
 
 // Error returns an error
 func (r *Response) Error() error {
+	defer res.Body.Close()
 	return r.err
 }
 
@@ -50,7 +51,7 @@ func (r *Response) Into(data interface{}) error {
 		return r.err
 	}
 
-	// defer r.res.Body.Close()
+	defer r.res.Body.Close()
 	decoder := json.NewDecoder(r.res.Body)
 	err := decoder.Decode(&data)
 	if err != nil {
@@ -62,7 +63,6 @@ func (r *Response) Into(data interface{}) error {
 }
 
 func newResponse(res *http.Response, err error) *Response {
-	defer res.Body.Close()
 	r := &Response{
 		res: res,
 		err: err,
