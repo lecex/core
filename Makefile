@@ -10,3 +10,8 @@ tag:
 .PHONY: proto
 proto:
 	protoc -I . --micro_out=. --gogofaster_out=. proto/event/event.proto
+t:
+	git tag -d v1.0.1
+	git push origin :refs/tags/v1.0.1
+	git tag v1.0.1
+	git push --tags
