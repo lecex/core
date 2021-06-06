@@ -36,7 +36,7 @@ type Response struct {
 
 // Error returns an error
 func (r *Response) Error() error {
-	defer res.Body.Close()
+	defer r.res.Body.Close()
 	return r.err
 }
 
