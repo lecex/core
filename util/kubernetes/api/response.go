@@ -5,6 +5,8 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/micro/go-micro/v2/util/log"
 )
 
 // Errors ...
@@ -52,6 +54,7 @@ func (r *Response) Into(data interface{}) error {
 	decoder := json.NewDecoder(r.res.Body)
 	err := decoder.Decode(&data)
 	if err != nil {
+		log.Fatal(err, data, decoder, r.res.Body)
 		return ErrDecode
 	}
 
